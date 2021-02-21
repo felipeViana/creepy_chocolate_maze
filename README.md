@@ -1,5 +1,5 @@
 # creepy_chocolate_maze
-game made for Trijam #108
+game made in 3h30 for Trijam #108
 
 https://felipeviana.itch.io/creepy-chocolate-maze
 
