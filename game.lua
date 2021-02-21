@@ -3,6 +3,7 @@ local colors = require 'colors'
 local utils = require 'utils'
 local sceneManager = require 'sceneManager'
 local soundManager = require 'soundManager'
+local screen = require 'shack'
 
 local TILE_SIZE = 64
 local GRID_SIZE = {['width'] = 8, ['height'] = 8}
@@ -34,11 +35,15 @@ function game.load( ... )
   chocolatePosition.y = utils.random(5, 8)
   currentChocolateSprite = utils.random(0, 7)
 
+  -- screen:setDimensions(width, height)
+
   sceneManager.pushScene(require 'pop_up_screens/start')
   sceneManager.pushScene(require 'pop_up_screens/controls')
 end
 
 function game.update( dt )
+  screen:update(dt)
+
   if playerPosition.x == chocolatePosition.x and playerPosition.y == chocolatePosition.y then
 
     while math.abs(chocolatePosition.x - playerPosition.x) < 2 or math.abs(chocolatePosition.y - playerPosition.y) < 2 do
@@ -73,6 +78,8 @@ function game.update( dt )
 end
 
 function game.draw( ... )
+  screen:apply()
+
   for i = 0, (GRID_SIZE.width - 1) * TILE_SIZE, TILE_SIZE do
     for j = 0, (GRID_SIZE.height - 1) * TILE_SIZE, TILE_SIZE do
       love.graphics.setColor(colors.black)
@@ -151,6 +158,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      screen:setShake(20)
       shouldBlinkWalls = true
     end
   end
@@ -160,6 +168,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      screen:setShake(20)
       shouldBlinkWalls = true
     end
   end
@@ -169,6 +178,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      screen:setShake(20)
       shouldBlinkWalls = true
     end
   end
@@ -178,6 +188,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      screen:setShake(20)
       shouldBlinkWalls = true
     end
   end
