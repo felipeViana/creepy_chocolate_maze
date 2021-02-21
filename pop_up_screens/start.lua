@@ -42,7 +42,7 @@ function start.draw( ... )
 end
 
 function start.keypressed( key )
-  if key == 'space' then
+  if key == 'space' or key == 'return' then
     soundManager.play(confirmSound)
     sceneManager.popScene()
   end
