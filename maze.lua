@@ -1,6 +1,6 @@
-utils = require 'utils'
+local utils = require 'utils'
 
-maze = {}
+local maze = {}
 
 local function createGrid( gridSize )
   grid = {}

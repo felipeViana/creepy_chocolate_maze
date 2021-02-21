@@ -1,9 +1,11 @@
+local utils = require 'utils'
+
 local colors = {
-  white = {215/255, 229/255, 209/255},
-  yellow = {223/255, 170/255, 104/255},
-  blue = {24/255, 142/255, 183/255},
-  darkBlue = {17/255, 61/255, 76/255},
-  red = {186/255, 56/255, 55/255}
+  green = utils.hex2rgb('378589'),
+  blue = utils.hex2rgb('46626D'),
+  purple = utils.hex2rgb('58194E'),
+  pink = utils.hex2rgb('FF407A'),
+  black = utils.hex2rgb('15011D')
 }
 
 return colors

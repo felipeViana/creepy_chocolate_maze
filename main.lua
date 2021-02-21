@@ -1,5 +1,5 @@
-maze = require 'maze'
-colors = require 'colors'
+local maze = require 'maze'
+local colors = require 'colors'
 
 local TILE_SIZE = 64
 local GRID_SIZE = {['width'] = 8, ['height'] = 8}
@@ -25,7 +25,7 @@ end
 function love.draw( ... )
   for i = 0, (GRID_SIZE.width - 1) * TILE_SIZE, TILE_SIZE do
     for j = 0, (GRID_SIZE.height - 1) * TILE_SIZE, TILE_SIZE do
-      love.graphics.setColor(colors.white)
+      love.graphics.setColor(colors.black)
       love.graphics.rectangle(
         'fill',
         i,
@@ -34,11 +34,9 @@ function love.draw( ... )
         TILE_SIZE
       )
 
-      love.graphics.setColor(colors.blue)
-
       local gridX = i / TILE_SIZE
       local gridY = j / TILE_SIZE
-
+      love.graphics.setColor(colors.pink)
       if shouldDrawWalls then
         if grid[gridX][gridY]:sub(1, 1) == '1' then
           love.graphics.line(
@@ -74,8 +72,7 @@ function love.draw( ... )
         end
       end
 
-      love.graphics.setColor(colors.red)
-
+      love.graphics.setColor(colors.green)
       love.graphics.rectangle(
         'fill',
         playerPosition.x * TILE_SIZE + TILE_SIZE / 8,
