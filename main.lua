@@ -1,122 +1,32 @@
-local maze = require 'maze'
-local colors = require 'colors'
-
-local TILE_SIZE = 64
-local GRID_SIZE = {['width'] = 8, ['height'] = 8}
-local STARTING_POSITION = {['x'] = 0, ['y'] = 0}
-
-local grid
-
-local playerPosition = {['x'] = 0, ['y'] = 0}
-
-local shouldDrawWalls = true
+local sceneManager = require 'sceneManager'
 
 function love.load( ... )
-  grid = maze.generate(GRID_SIZE, STARTING_POSITION)
+  defaultFont = love.graphics.newFont('assets/MetalMacabre.ttf', 14)
+  -- brazilFlag = love.graphics.newImage("assets/brazil.jpeg")
+  moveSound = love.audio.newSource("assets/move.mp3", "static")
+  eatSound = love.audio.newSource("assets/eat.ogg", "static")
+  errorSound = love.audio.newSource("assets/error.wav", "static")
+  confirmSound = love.audio.newSource("assets/confirm.wav", "static")
+  -- bgMusic = love.audio.newSource("assets/music.wav", "stream")
+  -- bgMusic:setLooping(true)
 
-  playerPosition.x = STARTING_POSITION.x
-  playerPosition.y = STARTING_POSITION.y
+  love.graphics.setFont(defaultFont)
+  sceneManager.changeScene(require 'game')
 end
 
-function love.update( dt )
-  -- body
+
+function love.update(dt)
+  sceneManager.currentScene.update(dt)
 end
 
-function love.draw( ... )
-  for i = 0, (GRID_SIZE.width - 1) * TILE_SIZE, TILE_SIZE do
-    for j = 0, (GRID_SIZE.height - 1) * TILE_SIZE, TILE_SIZE do
-      love.graphics.setColor(colors.black)
-      love.graphics.rectangle(
-        'fill',
-        i,
-        j,
-        TILE_SIZE,
-        TILE_SIZE
-      )
-
-      local gridX = i / TILE_SIZE
-      local gridY = j / TILE_SIZE
-      love.graphics.setColor(colors.pink)
-      if shouldDrawWalls then
-        if grid[gridX][gridY]:sub(1, 1) == '1' then
-          love.graphics.line(
-            i,
-            j,
-            i,
-            j + TILE_SIZE
-          )
-        end
-        if grid[gridX][gridY]:sub(2, 2) == '1' then
-          love.graphics.line(
-            i,
-            j,
-            i + TILE_SIZE,
-            j
-          )
-        end
-        if grid[gridX][gridY]:sub(3, 3) == '1' then
-          love.graphics.line(
-            i + TILE_SIZE,
-            j,
-            i + TILE_SIZE,
-            j + TILE_SIZE
-          )
-        end
-        if grid[gridX][gridY]:sub(4, 4) == '1' then
-          love.graphics.line(
-            i,
-            j + TILE_SIZE,
-            i + TILE_SIZE,
-            j + TILE_SIZE
-          )
-        end
-      end
-
-      love.graphics.setColor(colors.green)
-      love.graphics.rectangle(
-        'fill',
-        playerPosition.x * TILE_SIZE + TILE_SIZE / 8,
-        playerPosition.y * TILE_SIZE + TILE_SIZE / 8,
-        TILE_SIZE * 3 / 4,
-        TILE_SIZE * 3 / 4
-      )
-
-    end
-  end
-
-
+function love.draw()
+  sceneManager.draw()
 end
 
-function love.keypressed( key )
-  if key == 'escape' then
-    love.event.quit(0)
-  end
+function love.keypressed(key)
+  sceneManager.currentScene.keypressed(key)
+end
 
-  if key == 'space' then
-    grid = maze.generate(GRID_SIZE, STARTING_POSITION)
-  end
-
-
-  local currentCellWalls = grid[playerPosition.x][playerPosition.y]
-
-  if key == 'w' or key == 'up' then
-    if currentCellWalls:sub(2, 2) == '0' then
-      playerPosition.y = playerPosition.y - 1
-    end
-  end
-  if key == 'd' or key == 'right' then
-    if currentCellWalls:sub(3, 3) == '0' then
-      playerPosition.x = playerPosition.x + 1
-    end
-  end
-  if key == 's' or key == 'down' then
-    if currentCellWalls:sub(4, 4) == '0' then
-      playerPosition.y = playerPosition.y + 1
-    end
-  end
-  if key == 'a' or key == 'left' then
-    if currentCellWalls:sub(1, 1) == '0' then
-      playerPosition.x = playerPosition.x - 1
-    end
-  end
+function love.mousepressed(x, y, button)
+  sceneManager.currentScene.mousepressed(x, y, button)
 end

@@ -3,7 +3,7 @@ local utils = require 'utils'
 local maze = {}
 
 local function createGrid( gridSize )
-  grid = {}
+  local grid = {}
 
   for i = 0, gridSize.width do
     grid[i] = {}
