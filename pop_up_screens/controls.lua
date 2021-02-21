@@ -42,6 +42,13 @@ function controls.draw( ... )
   love.graphics.print('click to continue', RECTANGLE_POSITION.x + RECTANGLE_SIZE.width - 175, RECTANGLE_POSITION.y + RECTANGLE_SIZE.height - 40)
 end
 
+function controls.keypressed( key )
+  if key == 'space' then
+    soundManager.play(confirmSound)
+    sceneManager.popScene()
+  end
+end
+
 function controls.mousepressed( x, y, button )
   soundManager.play(confirmSound)
   sceneManager.popScene()

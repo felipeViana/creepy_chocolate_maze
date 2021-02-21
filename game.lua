@@ -18,6 +18,8 @@ local shouldDrawWalls = true
 
 local game = {}
 
+local resetsDone = 0
+
 function game.load( ... )
   grid = maze.generate(GRID_SIZE, STARTING_POSITION)
 
@@ -33,7 +35,28 @@ function game.load( ... )
 end
 
 function game.update( dt )
-  -- body
+  if playerPosition.x == chocolatePosition.x and playerPosition.y == chocolatePosition.y then
+
+    while math.abs(chocolatePosition.x - playerPosition.x) < 2 or math.abs(chocolatePosition.y - playerPosition.y) < 2 do
+      chocolatePosition.x = utils.random(0, GRID_SIZE.width)
+      chocolatePosition.y = utils.random(0, GRID_SIZE.height)
+    end
+
+    currentChocolateSprite = utils.random(0, 7)
+    grid = maze.generate(GRID_SIZE, STARTING_POSITION)
+
+    soundManager.play(eatSound)
+    resetsDone = resetsDone + 1
+
+    if resetsDone == 1 then
+      sceneManager.pushScene(require 'pop_up_screens/new_maze')
+    elseif resetsDone == 2 then
+      sceneManager.pushScene(require 'pop_up_screens/creepy_time')
+      shouldDrawWalls = false
+    elseif resetsDone == 3 then
+      sceneManager.pushScene(require 'pop_up_screens/endless')
+    end
+  end
 end
 
 function game.draw( ... )
@@ -86,15 +109,6 @@ function game.draw( ... )
         end
       end
 
-      love.graphics.setColor(colors.green)
-      love.graphics.rectangle(
-        'fill',
-        playerPosition.x * TILE_SIZE + TILE_SIZE / 8,
-        playerPosition.y * TILE_SIZE + TILE_SIZE / 8,
-        TILE_SIZE * 3 / 4,
-        TILE_SIZE * 3 / 4
-      )
-
       love.graphics.setColor(1, 1, 1)
       love.graphics.draw(
         spriteSheet,
@@ -103,10 +117,16 @@ function game.draw( ... )
         chocolatePosition.y * TILE_SIZE + TILE_SIZE / 4
       )
 
+      love.graphics.setColor(colors.green)
+      love.graphics.rectangle(
+        'fill',
+        playerPosition.x * TILE_SIZE + TILE_SIZE / 8,
+        playerPosition.y * TILE_SIZE + TILE_SIZE / 8,
+        TILE_SIZE * 3 / 4,
+        TILE_SIZE * 3 / 4
+      )
     end
   end
-
-
 end
 
 function game.keypressed( key )

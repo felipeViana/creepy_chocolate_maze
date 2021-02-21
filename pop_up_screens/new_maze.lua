@@ -36,9 +36,10 @@ function start.draw( ... )
     RECTANGLE_SIZE.height
   )
 
-  love.graphics.print('EAT the Chocolate!', RECTANGLE_POSITION.x + 125, RECTANGLE_POSITION.y + 125)
+  love.graphics.print('A new maze is created', RECTANGLE_POSITION.x + 100, RECTANGLE_POSITION.y + 100)
+  love.graphics.print('after each Chocolate eaten', RECTANGLE_POSITION.x + 90, RECTANGLE_POSITION.y + 150)
 
-  love.graphics.print('START', RECTANGLE_POSITION.x + RECTANGLE_SIZE.width - 100, RECTANGLE_POSITION.y + RECTANGLE_SIZE.height - 40)
+  love.graphics.print('OK', RECTANGLE_POSITION.x + RECTANGLE_SIZE.width - 75, RECTANGLE_POSITION.y + RECTANGLE_SIZE.height - 40)
 end
 
 function start.keypressed( key )

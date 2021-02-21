@@ -36,9 +36,10 @@ function start.draw( ... )
     RECTANGLE_SIZE.height
   )
 
-  love.graphics.print('EAT the Chocolate!', RECTANGLE_POSITION.x + 125, RECTANGLE_POSITION.y + 125)
+  love.graphics.print('CREEPY TIME!', RECTANGLE_POSITION.x + 130, RECTANGLE_POSITION.y + 100)
+  love.graphics.print('Now the walls are invisible!', RECTANGLE_POSITION.x + 90, RECTANGLE_POSITION.y + 150)
 
-  love.graphics.print('START', RECTANGLE_POSITION.x + RECTANGLE_SIZE.width - 100, RECTANGLE_POSITION.y + RECTANGLE_SIZE.height - 40)
+  love.graphics.print('OK ...', RECTANGLE_POSITION.x + RECTANGLE_SIZE.width - 50, RECTANGLE_POSITION.y + RECTANGLE_SIZE.height - 40)
 end
 
 function start.keypressed( key )
