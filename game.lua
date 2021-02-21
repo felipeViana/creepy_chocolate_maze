@@ -1,5 +1,6 @@
 local maze = require 'maze'
 local colors = require 'colors'
+local utils = require 'utils'
 local sceneManager = require 'sceneManager'
 local soundManager = require 'soundManager'
 
@@ -11,6 +12,8 @@ local grid
 
 local playerPosition = {['x'] = 0, ['y'] = 0}
 
+local chocolatePosition = {['x'] = 0, ['y'] = 0}
+
 local shouldDrawWalls = true
 
 local game = {}
@@ -20,6 +23,10 @@ function game.load( ... )
 
   playerPosition.x = STARTING_POSITION.x
   playerPosition.y = STARTING_POSITION.y
+
+  chocolatePosition.x = utils.random(5, 8)
+  chocolatePosition.y = utils.random(5, 8)
+  currentChocolateSprite = utils.random(0, 7)
 
   sceneManager.pushScene(require 'pop_up_screens/start')
   sceneManager.pushScene(require 'pop_up_screens/controls')
@@ -86,6 +93,14 @@ function game.draw( ... )
         playerPosition.y * TILE_SIZE + TILE_SIZE / 8,
         TILE_SIZE * 3 / 4,
         TILE_SIZE * 3 / 4
+      )
+
+      love.graphics.setColor(1, 1, 1)
+      love.graphics.draw(
+        spriteSheet,
+        chocolateSprites[currentChocolateSprite],
+        chocolatePosition.x * TILE_SIZE + TILE_SIZE / 4,
+        chocolatePosition.y * TILE_SIZE + TILE_SIZE / 4
       )
 
     end
