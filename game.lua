@@ -58,11 +58,14 @@ function game.update( dt )
     resetsDone = resetsDone + 1
 
     if resetsDone == 1 then
+      screen:setShake(0)
       sceneManager.pushScene(require 'pop_up_screens/new_maze')
     elseif resetsDone == 2 then
+      screen:setShake(0)
       sceneManager.pushScene(require 'pop_up_screens/creepy_time')
       shouldDrawWalls = false
     elseif resetsDone == 3 then
+      screen:setShake(0)
       sceneManager.pushScene(require 'pop_up_screens/endless')
     end
   end
@@ -158,7 +161,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
-      screen:setShake(20)
+      screen:setShake(100)
       shouldBlinkWalls = true
     end
   end
@@ -168,7 +171,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
-      screen:setShake(20)
+      screen:setShake(100)
       shouldBlinkWalls = true
     end
   end
@@ -178,7 +181,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
-      screen:setShake(20)
+      screen:setShake(100)
       shouldBlinkWalls = true
     end
   end
@@ -188,7 +191,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
-      screen:setShake(20)
+      screen:setShake(100)
       shouldBlinkWalls = true
     end
   end
