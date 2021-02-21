@@ -22,7 +22,7 @@ local game = {}
 local resetsDone = 0
 
 local shouldBlinkWalls = false
-local TOTAL_BLINK_TIME = 0.04
+local TOTAL_BLINK_TIME = 0.08
 local blinkTime = TOTAL_BLINK_TIME
 
 function game.load( ... )
