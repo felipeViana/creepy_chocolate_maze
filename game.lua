@@ -35,7 +35,7 @@ function game.load( ... )
   chocolatePosition.y = utils.random(5, 8)
   currentChocolateSprite = utils.random(0, 7)
 
-  -- screen:setDimensions(width, height)
+  bgMusic:play()
 
   sceneManager.pushScene(require 'pop_up_screens/start')
   sceneManager.pushScene(require 'pop_up_screens/controls')
@@ -66,6 +66,7 @@ function game.update( dt )
       shouldDrawWalls = false
     elseif resetsDone == 3 then
       screen:setShake(0)
+      sceneManager.pushScene(require 'pop_up_screens/credits')
       sceneManager.pushScene(require 'pop_up_screens/endless')
     end
   end

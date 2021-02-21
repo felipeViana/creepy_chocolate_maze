@@ -6,8 +6,8 @@ function love.load( ... )
   eatSound = love.audio.newSource("assets/eat.ogg", "static")
   errorSound = love.audio.newSource("assets/error.wav", "static")
   confirmSound = love.audio.newSource("assets/confirm.wav", "static")
-  -- bgMusic = love.audio.newSource("assets/music.wav", "stream")
-  -- bgMusic:setLooping(true)
+  bgMusic = love.audio.newSource("assets/music.mp3", "stream")
+  bgMusic:setLooping(true)
 
   spriteSheet = love.graphics.newImage("assets/sprites.png")
 
