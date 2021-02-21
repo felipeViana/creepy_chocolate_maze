@@ -20,6 +20,10 @@ local game = {}
 
 local resetsDone = 0
 
+local shouldBlinkWalls = false
+local TOTAL_BLINK_TIME = 0.04
+local blinkTime = TOTAL_BLINK_TIME
+
 function game.load( ... )
   grid = maze.generate(GRID_SIZE, STARTING_POSITION)
 
@@ -57,6 +61,15 @@ function game.update( dt )
       sceneManager.pushScene(require 'pop_up_screens/endless')
     end
   end
+
+  if shouldBlinkWalls then
+    blinkTime = blinkTime - dt
+
+    if blinkTime < 0 then
+      shouldBlinkWalls = false
+      blinkTime = TOTAL_BLINK_TIME
+    end
+  end
 end
 
 function game.draw( ... )
@@ -74,7 +87,7 @@ function game.draw( ... )
       local gridX = i / TILE_SIZE
       local gridY = j / TILE_SIZE
       love.graphics.setColor(colors.pink)
-      if shouldDrawWalls then
+      if shouldDrawWalls or shouldBlinkWalls then
         if grid[gridX][gridY]:sub(1, 1) == '1' then
           love.graphics.line(
             i,
@@ -130,15 +143,6 @@ function game.draw( ... )
 end
 
 function game.keypressed( key )
-  if key == 'escape' then
-    love.event.quit(0)
-  end
-
-  if key == 'space' then
-    grid = maze.generate(GRID_SIZE, STARTING_POSITION)
-  end
-
-
   local currentCellWalls = grid[playerPosition.x][playerPosition.y]
 
   if key == 'w' or key == 'up' then
@@ -147,6 +151,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      shouldBlinkWalls = true
     end
   end
   if key == 'd' or key == 'right' then
@@ -155,6 +160,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      shouldBlinkWalls = true
     end
   end
   if key == 's' or key == 'down' then
@@ -163,6 +169,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      shouldBlinkWalls = true
     end
   end
   if key == 'a' or key == 'left' then
@@ -171,6 +178,7 @@ function game.keypressed( key )
       soundManager.play(moveSound)
     else
       soundManager.play(errorSound)
+      shouldBlinkWalls = true
     end
   end
 end
